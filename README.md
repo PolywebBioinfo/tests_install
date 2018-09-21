@@ -2,6 +2,9 @@
 
 # 1/ Install GENBO packages
 
-# 2/ Launch Tests:
-perl -I $GENBO/lib/obj-nodb/Test_F_PolyQuery.pl
+# 2/ Launch Tests Paths
+perl -I $GENBO/lib/obj-nodb/ tests_paths.pl
+
+# 3/ Launch Tests PolyQuery Interface:
+perl -I $GENBO/lib/obj-nodb/ tests_polyquery.pl
 
