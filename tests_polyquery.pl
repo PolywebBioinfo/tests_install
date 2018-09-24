@@ -11,8 +11,10 @@ use File::Compare;
 use DateTime;
 use GBuffer;
 
-my ($update_data, $with_db, $single_chr, $multi_chr, $create_json, $my_project_name, $no_test, $not_exact_test, $only_test, $print_cmd, $print_url);
+
+my ($update_data, $with_db, $single_chr, $multi_chr, $create_json, $my_project_name, $no_test, $not_exact_test, $only_test, $print_cmd, $print_url, $path_polyquery);
 GetOptions(
+	'path_polyquery=s' => \$path_polyquery,
 	'single_chr!' => \$single_chr,
 	'multi_chr!' => \$multi_chr,
 	'update_data!' => \$update_data,
@@ -25,6 +27,10 @@ GetOptions(
 	'not_exact_test!' => \$not_exact_test,
 	'only_test=s' => \$only_test,
 );
+
+unless (-d $path_polyquery) {
+	die("\n\nERROR: -path_polyquery mandatory oy $path_polyquery doesn't exist... Die...\n\n");
+}
 
 if ($not_exact_test) {
 	warn "\n\n### TYPE TEST: compare values and common genes only ###\n";
@@ -39,17 +45,14 @@ if ($create_json) {
 use lib "$Bin/";
 my $project_name = 'TESTS_F';
 $project_name = $my_project_name if ($my_project_name);
-my $cmd_interface = "polyquery.pl ";
+my $cmd_interface = "$path_polyquery/polyquery.pl ";
 if ($with_db) {
 	$cmd_interface.= " project=$project_name";
 	$cmd_interface.= " test_with_db=1" unless ($my_project_name);
 }
 else {
-	$cmd_interface.= " project=$project_name";
-	$cmd_interface.= " test=1" unless ($my_project_name);
+	$cmd_interface.= " project=$project_name test=$Bin/";
 }
-
-#warn $cmd_interface; die;
 
 use Test::More;
 plan tests => 242;
@@ -2738,8 +2741,8 @@ sub getExpJsonFileName {
 		$suffix = $filter_chromosome;
 		$suffix =~ s/,/_/g;
 	}
-	$file = "$Bin/exp_json/$test_name.json";
-	$file = "$Bin/exp_json/$test_name"."_"."$suffix.json" if ($suffix);
+	$file = "$Bin/datas/exp_json/$test_name.json";
+	$file = "$Bin/datas/exp_json/$test_name"."_"."$suffix.json" if ($suffix);
 	return $file;
 	
 }
