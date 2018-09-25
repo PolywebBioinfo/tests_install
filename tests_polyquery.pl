@@ -12,7 +12,7 @@ use DateTime;
 use GBuffer;
 
 
-my ($update_data, $with_db, $single_chr, $multi_chr, $create_json, $my_project_name, $no_test, $not_exact_test, $only_test, $print_cmd, $print_url, $path_polyquery);
+my ($update_data, $with_db, $single_chr, $multi_chr, $create_json, $no_test, $not_exact_test, $only_test, $print_cmd, $print_url, $path_polyquery);
 GetOptions(
 	'path_polyquery=s' => \$path_polyquery,
 	'single_chr!' => \$single_chr,
@@ -22,7 +22,6 @@ GetOptions(
 	'print_cmd!' => \$print_cmd,
 	'print_url!' => \$print_url,
 	'create_json=s' => \$create_json,
-	'project_name=s' => \$my_project_name,
 	'no_test!' => \$no_test,
 	'not_exact_test!' => \$not_exact_test,
 	'only_test=s' => \$only_test,
@@ -43,16 +42,7 @@ if ($create_json) {
 }
 
 use lib "$Bin/";
-my $project_name = 'TESTS_F';
-$project_name = $my_project_name if ($my_project_name);
-my $cmd_interface = "$path_polyquery/polyquery.pl ";
-if ($with_db) {
-	$cmd_interface.= " project=$project_name";
-	$cmd_interface.= " test_with_db=1" unless ($my_project_name);
-}
-else {
-	$cmd_interface.= " project=$project_name test=$Bin/";
-}
+my $cmd_interface = "$path_polyquery/polyquery.pl project=TESTS_F test=$Bin/";
 
 use Test::More;
 plan tests => 242;
@@ -2759,7 +2749,7 @@ sub getExpJson {
 
 sub convertCmdToUrl {
 	my $cmd = shift;
-	my $url = "http://www.polyweb.fr/mbras/polyweb/vector/gene.html?project=$my_project_name";
+	my $url = "http://www.polyweb.fr/mbras/polyweb/vector/gene.html?project=TESTS_F";
 	my @lArgs = split(' ', $cmd);
 	my @lNewArgs;
 	my $i = 0;
