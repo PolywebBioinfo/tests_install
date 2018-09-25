@@ -80,7 +80,6 @@ foreach my $filter_chromosome (@lFiltersChr) {
 #	test_model_recessif_compound($filter_chromosome);
 #	die;
 	
-	
 	#test_compare_store_ids($my_project_name);
 	test_default($filter_chromosome);
 	test_only_intergenic($filter_chromosome);
