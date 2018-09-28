@@ -8,3 +8,48 @@ perl -I $GENBO/lib/obj-nodb/ tests_paths.pl
 # 3/ Launch Tests PolyQuery Interface:
 perl -I $GENBO/lib/obj-nodb/ tests_polyquery.pl -path_polyquery=$polymorphism-cgi/json_output_nodb/
 
+LIEN WEB:
+https://github.com/PolywebBioinfo
+http://rogerdudler.github.io/git-guide/index.fr.html
+https://git-scm.com/book/fr/v1/Les-bases-de-Git-Enregistrer-des-modifications-dans-le-d%C3%A9p%C3%B4t
+
+
+
+
+
+# En creant un projet sur interface WEB
+
+cd /Users/mbras/git/
+-> create project polymorphism-cgi sur github.com
+git clone git://github.com/PolywebBioinfo/polymorphism-cgi.git
+cd polymorphism-cgi/
+git init
+cp -r /data-xfs/dev/mbras/Workspace_2018_02_15/polymorphism-cgi/* .
+git add *
+git status
+git commit -m 'NOM DU COMMIT'
+git push https://github.com/PolywebBioinfo/polymorphism-cgi.git master -> commit sur le noeud master
+git pull https://github.com/PolywebBioinfo/polymorphism-cgi.git master -> update a partir du noeud master
+
+#Avec un projet qui existe deja et un dir deja fait
+
+cd /Users/mbras/git/GenBo/
+rm /Users/mbras/git/GenBo/.git/        # s'il existe deja -> repart de 0 sur l historique
+git checkout -b version_0.1            # si on veut créer un nouveau noeud de developpement (ex une version)
+git add script/                        # pour rajouter le dossier au commit
+git add conf_docker/
+git add lib/
+git status                             # verifie ce qu on va rajouter / modifier
+git commit -m 'v.0.1'                  # donne un nom au commit -> obligatoire
+git push https://github.com/PolywebBioinfo/genbo.git v.dev.20180928  # mis en ligne
+
+git branch master
+git checkout master
+
+# rajout nouvelle branch plus facilement
+
+rm /Users/mbras/git/GenBo/.git/
+git checkout -b version_0.2
+git add lib/
+git commit -m 'v.0.1'
+git push https://github.com/PolywebBioinfo/genbo.git version_0.2
